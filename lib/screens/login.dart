@@ -14,7 +14,7 @@ class _LoginPageState extends State<Login> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   UserOperations operate=UserOperations();
   UserClass u=UserClass(usermail: '', password: '');
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _usermailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
@@ -40,7 +40,7 @@ class _LoginPageState extends State<Login> {
                         horizontal: 70.0,
                       ),
                       child: TextFormField(
-                        controller: _usernameController,
+                        controller: _usermailController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "This field is required";
@@ -117,12 +117,12 @@ class _LoginPageState extends State<Login> {
                           minimumSize: Size(180, 50),
                         ),
                         onPressed: () async{
-                          u.usermail=_usernameController.text.trim();
+                          u.usermail=_usermailController.text.trim();
                           u.password=_passwordController.text.trim();
                           final form = _formKey.currentState;
                           if (form!.validate()){
                             print("Valid Form");
-                            int a=await operate.add(u);
+                            int a=await operate.login(u);
                             if (a==1) {
                               Navigator.push(
                               context,
@@ -132,7 +132,7 @@ class _LoginPageState extends State<Login> {
                             );
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text("Account couldn't be created"),
+                                SnackBar(content: Text("Incorrect credentials"),
                                   duration: Duration(milliseconds: 1500),
                                 )
                               );

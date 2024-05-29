@@ -13,6 +13,18 @@ class UserClass {
     required this.password,
   });
 
+  Map<String,dynamic> toMap(){
+    return(
+      {
+        "name":name,
+        "email":usermail,
+        "password":password,
+        "phone":phone,
+        "address":address
+      }
+    );
+  }
+
   get getusermail => this.usermail;
 
  set setusermail( usermail) => this.usermail = usermail;

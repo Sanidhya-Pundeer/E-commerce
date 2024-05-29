@@ -197,8 +197,11 @@ class _SignupPageState extends State<Signup> {
                             print("Valid Form");
                             user.usermail=_useremailController.text.trim();
                             user.password=_passwordController.text.trim();
+                            user.phone=int.parse(_phonenoController.text.trim());
+                            user.name=_fullnameController.text.trim();
                             int a=await operate.add(user);
-                            if (a==1) {
+                            int b=await operate.create(user);
+                            if (a==1 && b==1) {
                               Navigator.push(
                               context,
                               MaterialPageRoute(

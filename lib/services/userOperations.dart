@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/model/UserClass.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -23,10 +24,10 @@ class UserOperations {
     
   
   //login
-  Future<int> login(String username, String password) async {
+  Future<int> login(UserClass user) async {
     try {
       await _auth.signInWithEmailAndPassword(
-          email: username, password: password);
+          email: user.usermail, password: user.password);
        print("Login successful");
       return 1;
     } catch (e) {
@@ -35,8 +36,18 @@ class UserOperations {
     }
     }
 
-  //change password
-  update() {}
+  Future<int> create(UserClass user) async{
+    FirebaseFirestore firestore=FirebaseFirestore.instance;
+    try {
+      await firestore.collection("users").add(user.toMap());
+      print("Created");
+      return 1;
+    } catch (e) {
+      print("Noo");
+      return 0;
+    }
+
+  }
 
   //Accound deactivate
   remove() {}
