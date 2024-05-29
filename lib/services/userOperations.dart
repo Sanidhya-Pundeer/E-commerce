@@ -7,17 +7,17 @@ class UserOperations {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   //register
-  Future<String> add(UserClass user) async {
+  Future<int> add(UserClass user) async {
     // If registration is successful
     try {
       await _auth.createUserWithEmailAndPassword(
           email: user.username, password: user.password);
       print("done");
-      return "Reg";
+      return 1;
       // throws exception in case of failure & returns registration failed message
     } catch (e) {
       print("no");
-      return "no";
+      return 0;
     }
     }
     

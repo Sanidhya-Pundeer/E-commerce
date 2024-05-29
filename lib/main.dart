@@ -10,9 +10,8 @@ void main() async {
       options: FirebaseOptions(
     apiKey: 'AIzaSyDWyoNplIU4scGt1VhSQEM7O4QxEfl0yUE',
     appId: '1:832058424039:android:59d27b0b086dc86d978042',
-    messagingSenderId: 'sendid',
-    projectId: 'myapp',
-    storageBucket: 'myapp-b9yt18.appspot.com',
+    messagingSenderId: '832058424039',
+    projectId: 'mad-projects-e0ced'
   ));
   runApp(const MyApp());
 }

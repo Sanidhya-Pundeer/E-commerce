@@ -116,19 +116,28 @@ class _LoginPageState extends State<Login> {
                           ),
                           minimumSize: Size(180, 50),
                         ),
-                        onPressed: () {
+                        onPressed: () async{
                           u.username=_usernameController.text.trim();
                           u.password=_passwordController.text.trim();
                           final form = _formKey.currentState;
-                          if (form!.validate()) {
+                          if (form!.validate()){
                             print("Valid Form");
-                             operate.add(u);
-                            Navigator.push(
+                            int a=await operate.add(u);
+                            if (a==1) {
+                              Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => HomePage(),
                               ),
                             );
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("Account couldn't be created"),
+                                  duration: Duration(milliseconds: 1500),
+                                )
+                              );
+                            }
+                            
                           } else {
                             print("error in form");
                           }
