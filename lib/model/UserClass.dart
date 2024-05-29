@@ -1,15 +1,21 @@
 class UserClass {
-   String username;
+  String? name;
+   String usermail;
    String password;
+   int? phone;
+   String? address;
+
+
+
 
   UserClass({
-    required this.username,
+    required this.usermail,
     required this.password,
   });
 
-  get getUsername => this.username;
+  get getusermail => this.usermail;
 
- set setUsername( Username) => this.username = Username;
+ set setusermail( usermail) => this.usermail = usermail;
 
   get getPassword => this.password;
 

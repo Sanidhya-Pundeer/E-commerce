@@ -1,4 +1,7 @@
+import 'package:ecommerce/model/UserClass.dart';
 import 'package:ecommerce/screens/homepage.dart';
+import 'package:ecommerce/screens/login.dart';
+import 'package:ecommerce/services/userOperations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -9,10 +12,11 @@ class Signup extends StatefulWidget {
 
 class _SignupPageState extends State<Signup> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  // User user = User();
+  UserClass user = UserClass(usermail: '', password: '');
+  UserOperations operate=UserOperations();
   final TextEditingController _fullnameController = TextEditingController();
   final TextEditingController _phonenoController = TextEditingController();
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _useremailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
@@ -110,7 +114,7 @@ class _SignupPageState extends State<Signup> {
                         horizontal: 70.0,
                       ),
                       child: TextFormField(
-                        controller: _usernameController,
+                        controller: _useremailController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "This field is required";
@@ -123,7 +127,7 @@ class _SignupPageState extends State<Signup> {
                         padding: EdgeInsets.only(left: 9, right: 9),
                         child: Icon(Icons.person_2),
                       ),
-                          labelText: 'Username',
+                          labelText: 'Usermail',
                           fillColor: Colors.grey[100],
                           filled: true,
                           border: OutlineInputBorder(
@@ -187,16 +191,27 @@ class _SignupPageState extends State<Signup> {
                           ),
                           minimumSize: Size(180, 50),
                         ),
-                        onPressed: () {
+                        onPressed: () async{
                           final form = _formKey.currentState;
                           if (form!.validate()) {
                             print("Valid Form");
-                             Navigator.push(
+                            user.usermail=_useremailController.text.trim();
+                            user.password=_passwordController.text.trim();
+                            int a=await operate.add(user);
+                            if (a==1) {
+                              Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => HomePage(),
+                                builder: (context) => Login(),
                               ),
                             );
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("Account couldn't be created"),
+                                  duration: Duration(milliseconds: 1500),
+                                )
+                              );
+                            }
                           } else {
                             print("error in form");
                           }

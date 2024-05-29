@@ -11,7 +11,7 @@ class UserOperations {
     // If registration is successful
     try {
       await _auth.createUserWithEmailAndPassword(
-          email: user.username, password: user.password);
+          email: user.usermail, password: user.password);
       print("done");
       return 1;
       // throws exception in case of failure & returns registration failed message

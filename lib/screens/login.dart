@@ -13,7 +13,7 @@ class Login extends StatefulWidget {
 class _LoginPageState extends State<Login> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   UserOperations operate=UserOperations();
-  UserClass u=UserClass(username: '', password: '');
+  UserClass u=UserClass(usermail: '', password: '');
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -117,7 +117,7 @@ class _LoginPageState extends State<Login> {
                           minimumSize: Size(180, 50),
                         ),
                         onPressed: () async{
-                          u.username=_usernameController.text.trim();
+                          u.usermail=_usernameController.text.trim();
                           u.password=_passwordController.text.trim();
                           final form = _formKey.currentState;
                           if (form!.validate()){
