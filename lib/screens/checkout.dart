@@ -1,5 +1,6 @@
 import 'package:ecommerce/model/product.dart';
 import 'package:ecommerce/screens/homepage.dart';
+import 'package:ecommerce/screens/razorPay.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce/model/cartProvider.dart';
 import 'package:provider/provider.dart';
@@ -55,7 +56,7 @@ class _CheckoutState extends State<Checkout> {
       ),
       bottomNavigationBar: BottomAppBar(
         child: Padding(
-          padding: const EdgeInsets.all( 12.0),
+          padding: const EdgeInsets.all(12.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.min,
@@ -63,11 +64,11 @@ class _CheckoutState extends State<Checkout> {
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HomePage(),
-                              ),
-                            );
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RazorPay(),
+                    ),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color.fromARGB(255, 206, 46, 46),
@@ -86,10 +87,10 @@ class _CheckoutState extends State<Checkout> {
                   Provider.of<CartProvider>(context, listen: false).removeAll();
                 },
                 style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromARGB(255, 228, 213, 210),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
+                  backgroundColor: Color.fromARGB(255, 228, 213, 210),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
                 child: Text(
                   'Remove All',
