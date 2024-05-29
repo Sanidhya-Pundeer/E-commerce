@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ecommerce/model/cartProvider.dart';
 import 'package:ecommerce/screens/checkout.dart';
+import 'package:badges/badges.dart' as badges;
 
 class DetailPage extends StatefulWidget {
   final Product product;
@@ -21,36 +22,35 @@ class _DetailPageState extends State<DetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/images/logo.jpg',
-              height: 30,
-              width: 200,
-              fit: BoxFit.contain,
-            ),
-            SizedBox(width: 8),
-          ],
-        ),
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 12.0),
-            child: IconButton(
-              icon: Icon(Icons.trolley),
-              iconSize: 32,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Checkout(),
-                  ),
-                );
-              },
-            ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/logo.jpg',
+                height: 30,
+                width: 200,
+                fit: BoxFit.contain,
+              ),
+              SizedBox(width: 8),
+            ],
           ),
-        ],
-      ),
+          actions: [
+            badges.Badge(
+                position: badges.BadgePosition.topEnd(top: -5, end: 5),
+                badgeContent: Text('3'),
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Checkout(),
+                      ),
+                    );
+                  },
+                  icon: Icon(Icons.trolley),
+                  iconSize: 32,
+                ))
+          ]),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -71,7 +71,8 @@ class _DetailPageState extends State<DetailPage> {
                   children: [
                     Text(
                       widget.product.name,
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -85,7 +86,8 @@ class _DetailPageState extends State<DetailPage> {
                   children: [
                     Text(
                       'Price: ${widget.product.price}',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -99,7 +101,8 @@ class _DetailPageState extends State<DetailPage> {
                   children: [
                     Text(
                       'Description:',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 8),
                     Text(
@@ -109,7 +112,8 @@ class _DetailPageState extends State<DetailPage> {
                     SizedBox(height: 16),
                     Text(
                       'Product Details:',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 8),
                     Text(
@@ -134,7 +138,9 @@ class _DetailPageState extends State<DetailPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(
-              icon: _isFavorite ? Icon(Icons.favorite_rounded, color: Colors.red) : Icon(Icons.favorite_outline_rounded),
+              icon: _isFavorite
+                  ? Icon(Icons.favorite_rounded, color: Colors.red)
+                  : Icon(Icons.favorite_outline_rounded),
               onPressed: () {
                 setState(() {
                   _isFavorite = !_isFavorite;
@@ -144,11 +150,11 @@ class _DetailPageState extends State<DetailPage> {
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HomePage(),
-                              ),
-                            );
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomePage(),
+                  ),
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color.fromARGB(255, 228, 213, 210),
@@ -156,11 +162,13 @@ class _DetailPageState extends State<DetailPage> {
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              child: Text('Available in Stores', style: TextStyle(color: Colors.red)),
+              child: Text('Available in Stores',
+                  style: TextStyle(color: Colors.red)),
             ),
             ElevatedButton(
               onPressed: () {
-                final cartProvider = Provider.of<CartProvider>(context, listen: false);
+                final cartProvider =
+                    Provider.of<CartProvider>(context, listen: false);
                 final product = widget.product;
                 if (cartProvider.cart.contains(product)) {
                   ScaffoldMessenger.of(context).showSnackBar(
