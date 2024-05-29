@@ -7,6 +7,8 @@ import 'package:ecommerce/model/cartProvider.dart';
 class BagPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final GlobalKey sortKey = GlobalKey();
+    final GlobalKey filterKey = GlobalKey();
     List<Product> productList = Provider.of<CartProvider>(context).pList;
 
     return Scaffold(
@@ -47,7 +49,76 @@ class BagPage extends StatelessWidget {
           return _buildGridItem(context, productList[index]);
         },
       ),
-    );
+      bottomNavigationBar: BottomAppBar(
+        height: 60,
+        shape: CircularNotchedRectangle(), // Notch for floating action button
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+                key: filterKey,
+                onPressed: () {
+                  final RenderBox button = filterKey.currentContext!.findRenderObject() as RenderBox;
+                  final Size buttonSize = button.size; // Get the button's size
+
+                  final Rect buttonRect = Rect.fromLTWH(
+                    button.localToGlobal(Offset.zero).dx, // Left position
+                    button.localToGlobal(Offset.zero).dy, // Top position
+                    buttonSize.width,  // Width
+                    buttonSize.height, // Height
+                  );
+
+                  showMenu<String>(
+                    context: context,
+                    position: RelativeRect.fromRect(buttonRect, Offset.zero & MediaQuery.of(context).size),
+                    items: [
+                      PopupMenuItem(child: Text("price")),
+                      PopupMenuItem(child: Text("popularity")),
+                      // Add more menu options here
+                    ],
+                  ).then((selectedValue) {
+                    if (selectedValue != null) {
+                      // Handle the selected menu item (e.g., update sort state)
+                      print("Selected: $selectedValue");
+                    }
+                  });
+                },
+                icon: Icon(Icons.filter_alt_sharp),
+              ),
+            IconButton(
+                key: sortKey,
+                onPressed: () {
+                  final RenderBox button = sortKey.currentContext!.findRenderObject() as RenderBox;
+                  final Size buttonSize = button.size; // Get the button's size
+
+                  final Rect buttonRect = Rect.fromLTWH(
+                    button.localToGlobal(Offset.zero).dx, // Left position
+                    button.localToGlobal(Offset.zero).dy, // Top position
+                    buttonSize.width,  // Width
+                    buttonSize.height, // Height
+                  );
+
+                  showMenu<String>(
+                    context: context,
+                    position: RelativeRect.fromRect(buttonRect, Offset.zero & MediaQuery.of(context).size),
+                    items: [
+                      PopupMenuItem(child: Text("Low to High")),
+                      PopupMenuItem(child: Text("High to Low")),
+                      // Add more menu options here
+                    ],
+                  ).then((selectedValue) {
+                    if (selectedValue != null) {
+                      // Handle the selected menu item (e.g., update sort state)
+                      print("Selected: $selectedValue");
+                    }
+                  });
+                },
+                icon: Icon(Icons.sort),
+              ),
+          ],
+        ),
+      ),
+      );
   }
 
   Widget _buildGridItem(BuildContext context, Product product) {
