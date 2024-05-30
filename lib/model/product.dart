@@ -1,11 +1,22 @@
 class Product {
-  String img = '';
-  String name = '';
-  double price = 0;
-  int quantity = 0;
-  int limit = 0;
-  bool isChecked = false;
+  String? id;
+  String? name;
+  String? price;
+  String? offerPrice;
+  String? rating;
+  int? numRate;
+  String? img;
+  String? desc;
+  String? delivery;
 
-  Product(this.name, this.price, this.quantity, this.limit, this.img);
-  Product.quantity(this.quantity);
+  Product(
+      String? id,
+      String? name,
+      String? price,
+      String? offerPrice,
+      String? rating,
+      int? numRate,
+      String? img,
+      String? desc,
+      String? delivery);
 }
