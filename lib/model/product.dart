@@ -82,4 +82,16 @@ class Product {
     }
     return products;
   }
+
+   Product fromMap(Map<String, dynamic> map) {
+     Product p=Product();
+      p.id = ['product_id'] as String?;
+      p.name = ( ['product_title'] as String?)?.split(',')[0];
+      p.price = ( ['typical_price_range'] as List<dynamic>?)?[0] as String?;
+      p.rating = ( ['product_rating'] as num?)?.toDouble();
+      p.numRate =  ['product_num_reviews'] as int?;
+      p.img = ( ['product_photos'] as List<dynamic>?)?.first as String?;
+      p.desc =  ['product_description'] as String?;
+      return p;
+  }
 }

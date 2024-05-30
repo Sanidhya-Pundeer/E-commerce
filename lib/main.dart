@@ -1,6 +1,8 @@
 import 'package:ecommerce/model/cartProvider.dart';
+import 'package:ecommerce/model/product.dart';
 import 'package:ecommerce/model/userProvider.dart';
 import 'package:ecommerce/screens/bagPage.dart';
+import 'package:ecommerce/screens/detailPage.dart';
 import 'package:ecommerce/screens/homepage.dart';
 import 'package:ecommerce/screens/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -25,8 +27,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => userProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => userProvider()),
+        ChangeNotifierProvider(create: (context) => CartProvider()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'E-Commerce App',
@@ -37,9 +42,10 @@ class MyApp extends StatelessWidget {
         home: Login(),
         routes: {
           '/signup': (context) => Signup(),
+
           '/home': (context) => HomePage(),
           '/bagPage': (context) => BagPage(),
-          // '/checkout': (context) => Checkouut(),
+          '/detailPage': (context) => DetailPage(product: ModalRoute.of(context)!.settings.arguments as Product),
         },
       ),
     );

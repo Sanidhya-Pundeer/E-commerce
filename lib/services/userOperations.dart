@@ -52,34 +52,199 @@ class UserOperations {
   }
 
   // Update cart
-  Future<void> addProductToCart(String name, String img, String email) async {
-    final cartRef =
-        firestore.collection('users').where("email", isEqualTo: email).get();
+  Future<int> updateCart(String id, String name, String image, String email) async {
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final userQuery = firestore.collection('users').where('email', isEqualTo: email);
 
-    final newProduct = {
+  return await firestore.runTransaction((transaction) async {
+
+    final querySnapshot = await userQuery.get();
+
+    if (querySnapshot.docs.isEmpty) {
+      throw Exception("User document does not exist!");
+    }
+
+    final userDoc = querySnapshot.docs.first;
+
+    Map<String, dynamic> currentCart = userDoc.data()!['cart'] ?? {}; 
+
+    String newProductId = id;
+    Map<String, dynamic> newProductData = {
       'pname': name,
-      'pimg': img,
+      'pimg': image,
       'pqty': 1,
     };
 
-    try {
-      
-        if ) {
-          final cartData =
-              snapshot.data()?['cart'] as Map<String, dynamic>? ?? {};
-          cartData[productId] = newProduct;
+    currentCart[newProductId] = newProductData;
 
-          transaction.update(cartRef, {'cart': cartData});
-        } else {
-          transaction.set(cartRef, {
-            'cart': {productId: newProduct}
-          });
-        }
-      });
+    // Update the cart field in the user document
+    transaction.update(userDoc.reference, {'cart': currentCart});
 
-      print('Product added to cart');
-    } catch (e) {
-      print('Error adding product to cart: $e');
+    return 1; // Indicate successful update
+  }).catchError((error) {
+    print("Transaction failed: $error");
+    return 0; // Indicate failure
+  });
+}
+
+Future<int> updateProductQuantity(String productId, String userEmail) async {
+  final firestore = FirebaseFirestore.instance;
+  final user = FirebaseAuth.instance.currentUser;
+
+
+  await firestore.runTransaction((transaction) async {
+    final userRef = firestore.collection('users').where('email', isEqualTo: userEmail);
+    final querySnapshot = await userRef.get();
+
+    if (querySnapshot.docs.isEmpty) {
+      throw Exception("User document not found!");
     }
+
+    final userDoc = querySnapshot.docs.first;
+    final currentCart = userDoc.data()!['cart'] ?? {};
+
+    if (!currentCart.containsKey(productId)) {
+      throw Exception("Product not found in cart!");
+    }
+
+    currentCart[productId]['pqty'] +=1 ;
+    int qty=currentCart[productId]['pqty'];
+
+
+    transaction.update(userDoc.reference, {'cart': currentCart});
+    return qty;
+  }).catchError((error) {
+    print("Error updating cart: $error");
+    return 0;
+    
+  });
+  return 0;
+}
+
+Future<int> decreaseProductQuantity(String productId, String userEmail) async {
+  final firestore = FirebaseFirestore.instance;
+  final user = FirebaseAuth.instance.currentUser;
+
+
+  await firestore.runTransaction((transaction) async {
+    final userRef = firestore.collection('users').where('email', isEqualTo: userEmail);
+    final querySnapshot = await userRef.get();
+
+    if (querySnapshot.docs.isEmpty) {
+      throw Exception("User document not found!");
+    }
+
+    final userDoc = querySnapshot.docs.first;
+    final currentCart = userDoc.data()!['cart'] ?? {};
+
+    if (!currentCart.containsKey(productId)) {
+      throw Exception("Product not found in cart!");
+    }
+
+    currentCart[productId]['pqty'] -=1 ;
+    int qty=currentCart[productId]['pqty'];
+
+
+    transaction.update(userDoc.reference, {'cart': currentCart});
+    return qty;
+  }).catchError((error) {
+    print("Error updating cart: $error");
+    return 0;
+    
+  });
+  return 0;
+}
+
+Future<int> getCartQuantity(String productId, String email) async {
+  final firestore = FirebaseFirestore.instance;
+
+  final userRef = firestore.collection('users').where('email', isEqualTo: email);
+  final querySnapshot = await userRef.get();
+
+
+  final userDoc = querySnapshot.docs.first;
+  final cartData = userDoc.data()!['cart'];
+
+  if (cartData == null || !cartData.containsKey(productId)) {
+    return 0; // Product not found in cart
   }
+
+  return cartData[productId]['pqty'];
+}
+
+Future<void> removeProductFromCart(String productId,String email) async {
+  final firestore = FirebaseFirestore.instance;
+  final user = FirebaseAuth.instance.currentUser;
+
+  if (user == null) {
+    throw Exception("User not logged in!");
+  }
+
+  final userEmail = user.email;
+
+  await firestore.runTransaction((transaction) async {
+    final userRef = firestore.collection('users').where('email', isEqualTo: userEmail);
+    final querySnapshot = await userRef.get();
+
+    if (querySnapshot.docs.isEmpty) {
+      throw Exception("User document not found!");
+    }
+
+    final userDoc = querySnapshot.docs.first;
+    final currentCart = userDoc.data()!['cart'] ?? {};
+
+    if (!currentCart.containsKey(productId)) {
+      throw Exception("Product not found in cart!");
+    }
+
+    currentCart.remove(productId); // Remove the product using remove
+
+    transaction.update(userDoc.reference, {'cart': currentCart});
+  }).catchError((error) {
+    print("Error removing product from cart: $error");
+  });
+}
+
+Future<int> getCartLength(String email) async {
+  final firestore = FirebaseFirestore.instance;
+
+  final userRef = firestore.collection('users').where('email', isEqualTo: email);
+  final querySnapshot = await userRef.get();
+
+  if (querySnapshot.docs.isEmpty) {
+    return 0; // User document not found
+  }
+
+  final userDoc = querySnapshot.docs.first;
+  final cartData = userDoc.data()!['cart'];
+
+  if (cartData == null) {
+    return 0; // No cart data found
+  }
+
+  return cartData.length; // Get the length of the cart map
+}
+
+Future<List<Map<String, dynamic>>> getCartProducts(String email) async {
+  final firestore = FirebaseFirestore.instance;
+
+  final userRef = firestore.collection('users').where('email', isEqualTo: email);
+  final querySnapshot = await userRef.get();
+
+  if (querySnapshot.docs.isEmpty) {
+    return []; // User document not found
+  }
+
+  final userDoc = querySnapshot.docs.first;
+  final cartData = userDoc.data()!['cart'] ?? {};
+
+  final List<Map<String, dynamic>> cartProducts = [];
+  cartData.forEach((productId, productData) {
+    cartProducts.add(productData);
+  });
+
+  return cartProducts;
+}
+
+
 }

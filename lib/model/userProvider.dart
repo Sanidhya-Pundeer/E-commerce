@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
 class userProvider extends ChangeNotifier {
-  String? email;
-  String? name;
+  String? _email;
+  String? _name;
 
+  String? get email => _email;
   void setValue(String uemail, String uname) {
-    email = uemail.toLowerCase();
-    name = uname.toLowerCase();
+    _email=uemail;
+    _name = uname;
     notifyListeners();
   }
 
   void removeValue() {
-    email = '';
-    name = '';
+    _email = null;
+    _name = null;
     notifyListeners();
   }
 }
