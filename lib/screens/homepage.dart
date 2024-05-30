@@ -1,4 +1,6 @@
+import 'package:ecommerce/model/product.dart';
 import 'package:ecommerce/screens/bagPage.dart';
+import 'package:ecommerce/services/Helper.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,7 +11,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State {
   final TextEditingController _searchController = TextEditingController();
   var _selectedIndex = 0;
-
+  Helper http=Helper();
   
 
   @override
@@ -195,11 +197,22 @@ class _HomePageState extends State {
 
   Widget _buildGridItem(String imagePath, String text, Widget nextPage) {
   return GestureDetector(
-    onTap: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => nextPage),
-      );
+    onTap: () async{
+      List<Product> p=await http.getProducts("phone");
+      if (p.isNotEmpty) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => nextPage,
+              settings: RouteSettings(arguments: p),
+            ),
+          );
+        } else {
+          // Handle empty or null product list
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('No products found')),
+          );
+        }
     },
     child: Column(
       children: [

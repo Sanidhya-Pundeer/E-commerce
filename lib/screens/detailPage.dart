@@ -1,8 +1,6 @@
 import 'package:ecommerce/model/product.dart';
 import 'package:ecommerce/screens/homepage.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:ecommerce/model/cartProvider.dart';
 import 'package:ecommerce/screens/checkout.dart';
 import 'package:badges/badges.dart' as badges;
 
@@ -40,12 +38,12 @@ class _DetailPageState extends State<DetailPage> {
                 badgeContent: Text('3'),
                 child: IconButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Checkout(),
-                      ),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => Checkout(),
+                    //   ),
+                    // );
                   },
                   icon: Icon(Icons.trolley),
                   iconSize: 32,
@@ -57,8 +55,8 @@ class _DetailPageState extends State<DetailPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Image.asset(
-                widget.product.img,
+              Image.network(
+                widget.product.img!,
                 height: 400,
                 fit: BoxFit.cover,
               ),
@@ -70,7 +68,7 @@ class _DetailPageState extends State<DetailPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.product.name,
+                      widget.product.name!,
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
@@ -106,8 +104,8 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                     SizedBox(height: 8),
                     Text(
-                      'This stylish and durable backpack is perfect for everyday use. Made from high-quality materials, it features multiple compartments to keep your belongings organized. The padded straps ensure comfortable carrying, while the sleek design adds a touch of sophistication to your look.',
-                      style: TextStyle(fontSize: 16),
+                      "${widget.product.desc}",
+                       style: TextStyle(fontSize: 16),
                     ),
                     SizedBox(height: 16),
                     Text(
@@ -167,25 +165,25 @@ class _DetailPageState extends State<DetailPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                final cartProvider =
-                    Provider.of<CartProvider>(context, listen: false);
-                final product = widget.product;
-                if (cartProvider.cart.contains(product)) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Item is already in the cart'),
-                      duration: Duration(seconds: 2),
-                    ),
-                  );
-                } else {
-                  cartProvider.add(product);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Product added to cart'),
-                      duration: Duration(seconds: 2),
-                    ),
-                  );
-                }
+                // final cartProvider =
+                //     Provider.of<CartProvider>(context, listen: false);
+                // final product = widget.product;
+                // if (cartProvider.cart.contains(product)) {
+                //   ScaffoldMessenger.of(context).showSnackBar(
+                //     SnackBar(
+                //       content: Text('Item is already in the cart'),
+                //       duration: Duration(seconds: 2),
+                //     ),
+                //   );
+                // } else {
+                //   cartProvider.add(product);
+                //   ScaffoldMessenger.of(context).showSnackBar(
+                //     SnackBar(
+                //       content: Text('Product added to cart'),
+                //       duration: Duration(seconds: 2),
+                //     ),
+                //   );
+                // }
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,

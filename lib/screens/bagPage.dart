@@ -4,12 +4,35 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ecommerce/model/cartProvider.dart';
 
-class BagPage extends StatelessWidget {
+class BagPage extends StatefulWidget {
+  @override
+  State<BagPage> createState() => _BagPageState();
+}
+
+class _BagPageState extends State<BagPage> {
+
+  List<Product>? products;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final args = ModalRoute.of(context)?.settings.arguments as List<Product>?;
+    if (args != null) {
+      setState(() {
+        products = args;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final GlobalKey sortKey = GlobalKey();
     final GlobalKey filterKey = GlobalKey();
-    List<Product> productList = Provider.of<CartProvider>(context).pList;
 
     return Scaffold(
       backgroundColor: Colors.grey[100],
@@ -44,9 +67,9 @@ class BagPage extends StatelessWidget {
           crossAxisSpacing: 8.0,
           childAspectRatio: 4 / 6,  //width:height 
         ),
-        itemCount: productList.length,
+        itemCount: products!.length,
         itemBuilder: (context, index) {
-          return _buildGridItem(context, productList[index]);
+          return _buildGridItem(context, products![index]);
         },
       ),
       bottomNavigationBar: BottomAppBar(
@@ -140,21 +163,21 @@ class BagPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-              child: Image.asset(
-                product.img,
+              child: Image.network(
+                product.img!,
                 fit: BoxFit.cover,
               ),
             ),
             SizedBox(height: 2),
             Text(
-              product.name,
+              product.name!,
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(fontSize: 14),
             ),
             SizedBox(height: 1.5),
             Text(
-              'Price: ${product.price.toString()}',
+              'Price: ${product.price}',
               style: TextStyle(
                 fontSize: 18,
                 color: Color.fromARGB(255, 40, 196, 239),

@@ -22,9 +22,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => CartProvider(),
-      child: MaterialApp(
+    // return ChangeNotifierProvider(
+    //   create: (context) => CartProvider(),
+    //   child: MaterialApp(
+    //     debugShowCheckedModeBanner: false,
+    //     title: 'E-Commerce App',
+    //     theme: ThemeData(
+    //       colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    //       useMaterial3: true,
+    //     ),
+    //     home: Login(),
+    //   ),
+    // );
+    return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'E-Commerce App',
         theme: ThemeData(
@@ -32,7 +42,6 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         home: Login(),
-      ),
-    );
+      );
   }
 }
