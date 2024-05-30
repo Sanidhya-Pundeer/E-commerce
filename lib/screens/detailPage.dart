@@ -38,12 +38,12 @@ class _DetailPageState extends State<DetailPage> {
                 badgeContent: Text('3'),
                 child: IconButton(
                   onPressed: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => Checkout(),
-                    //   ),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Checkout(),
+                      ),
+                    );
                   },
                   icon: Icon(Icons.trolley),
                   iconSize: 32,

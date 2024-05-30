@@ -44,9 +44,163 @@ class Helper {
 
     return [];
   }
+
+  Future<List<Product>> sortProductsLow(String name) async {
+    final headers = {'X-RapidAPI-Key': apiKey, 'X-RapidAPI-Host': auth};
+
+    Map<String, dynamic> param = {
+      'q': name,
+      "sort_by":"LOWEST_PRICE"
+    };
+
+    Map<String, dynamic> data = {};
+
+    try {
+      final url = Uri.https(auth, path, param);
+      http.Response res=await http.get(url,headers: headers);
+      data=jsonDecode(res.body);
+
+      if (res.statusCode == 200) {
+        data = jsonDecode(res.body);
+        if (data.containsKey('data')) {
+          print(data['data'][11]['product_title']);
+          final dataContent = data['data'];
+          if (dataContent is List) {
+            return Product().fromJson(dataContent);
+          } else {
+            print('Unexpected data content: ${dataContent.runtimeType}');
+          }
+        } else {
+          print('Unexpected response structure: ${res.body}');
+        }
+      } else {
+        print('Failed to load products: ${res.statusCode}');
+      }
+    } catch (e) {
+      print('Error fetching products: $e');
+    }
+
+
+    return [];
+  }
+  
+  Future<List<Product>> sortProductsHigh(String name) async {
+    final headers = {'X-RapidAPI-Key': apiKey, 'X-RapidAPI-Host': auth};
+
+    Map<String, dynamic> param = {
+      'q': name,
+      "sort_by":"HIGHEST_PRICE"
+    };
+
+    Map<String, dynamic> data = {};
+
+    try {
+      final url = Uri.https(auth, path, param);
+      http.Response res=await http.get(url,headers: headers);
+      data=jsonDecode(res.body);
+
+      if (res.statusCode == 200) {
+        data = jsonDecode(res.body);
+        if (data.containsKey('data')) {
+          print(data['data'][11]['product_title']);
+          final dataContent = data['data'];
+          if (dataContent is List) {
+            return Product().fromJson(dataContent);
+          } else {
+            print('Unexpected data content: ${dataContent.runtimeType}');
+          }
+        } else {
+          print('Unexpected response structure: ${res.body}');
+        }
+      } else {
+        print('Failed to load products: ${res.statusCode}');
+      }
+    } catch (e) {
+      print('Error fetching products: $e');
+    }
+
+
+    return [];
+  }
+
+  Future<List<Product>> rate3(String name) async {
+    final headers = {'X-RapidAPI-Key': apiKey, 'X-RapidAPI-Host': auth};
+
+    Map<String, dynamic> param = {
+      'q': name,
+    };
+
+    Map<String, dynamic> data = {};
+
+    try {
+      final url = Uri.https(auth, path, param);
+      http.Response res=await http.get(url,headers: headers);
+      data=jsonDecode(res.body);
+
+      if (res.statusCode == 200) {
+        data = jsonDecode(res.body);
+        if (data.containsKey('data')) {
+          print(data['data'][11]['product_title']);
+          final dataContent = data['data'];
+          if (dataContent is List) {
+            return Product().fromJsonFilter3(dataContent);
+          } else {
+            print('Unexpected data content: ${dataContent.runtimeType}');
+          }
+        } else {
+          print('Unexpected response structure: ${res.body}');
+        }
+      } else {
+        print('Failed to load products: ${res.statusCode}');
+      }
+    } catch (e) {
+      print('Error fetching products: $e');
+    }
+
+
+    return [];
+  }
+
+  Future<List<Product>> rate4(String name) async {
+    final headers = {'X-RapidAPI-Key': apiKey, 'X-RapidAPI-Host': auth};
+
+    Map<String, dynamic> param = {
+      'q': name,
+    };
+
+    Map<String, dynamic> data = {};
+
+    try {
+      final url = Uri.https(auth, path, param);
+      http.Response res=await http.get(url,headers: headers);
+      data=jsonDecode(res.body);
+
+      if (res.statusCode == 200) {
+        data = jsonDecode(res.body);
+        if (data.containsKey('data')) {
+          print(data['data'][11]['product_title']);
+          final dataContent = data['data'];
+          if (dataContent is List) {
+            return Product().fromJsonFilter4(dataContent);
+          } else {
+            print('Unexpected data content: ${dataContent.runtimeType}');
+          }
+        } else {
+          print('Unexpected response structure: ${res.body}');
+        }
+      } else {
+        print('Failed to load products: ${res.statusCode}');
+      }
+    } catch (e) {
+      print('Error fetching products: $e');
+    }
+
+
+    return [];
+  }
 }
 
 void main() {
   Helper h = Helper();
-  h.getProducts("phone");
+  h.rate3("phone");
 }

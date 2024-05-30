@@ -1,5 +1,6 @@
 import 'package:ecommerce/model/product.dart';
 import 'package:ecommerce/screens/detailPage.dart';
+import 'package:ecommerce/services/Helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ecommerce/model/cartProvider.dart';
@@ -11,6 +12,7 @@ class BagPage extends StatefulWidget {
 
 class _BagPageState extends State<BagPage> {
 
+  Helper http=Helper();
   List<Product>? products;
 
   @override
@@ -95,8 +97,44 @@ class _BagPageState extends State<BagPage> {
                     context: context,
                     position: RelativeRect.fromRect(buttonRect, Offset.zero & MediaQuery.of(context).size),
                     items: [
-                      PopupMenuItem(child: Text("price")),
-                      PopupMenuItem(child: Text("popularity")),
+                      PopupMenuItem(child: Text("Rating > 3"),
+                      onTap: ()async{
+                                    List<Product> p=await http.rate3("phone");
+                                    if (p.isNotEmpty) {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => BagPage(),
+                                            settings: RouteSettings(arguments: p),
+                                          ),
+                                        );
+                                      } else {
+                                        // Handle empty or null product list
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(content: Text('No products found')),
+                                        );
+                                      }
+                                  },
+                      ),
+                      PopupMenuItem(child: Text("Rating > 4"),
+                      onTap: ()async{
+                                    List<Product> p=await http.rate4("phone");
+                                    if (p.isNotEmpty) {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => BagPage(),
+                                            settings: RouteSettings(arguments: p),
+                                          ),
+                                        );
+                                      } else {
+                                        // Handle empty or null product list
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(content: Text('No products found')),
+                                        );
+                                      }
+                                  },
+                      ),
                       // Add more menu options here
                     ],
                   ).then((selectedValue) {
@@ -125,8 +163,45 @@ class _BagPageState extends State<BagPage> {
                     context: context,
                     position: RelativeRect.fromRect(buttonRect, Offset.zero & MediaQuery.of(context).size),
                     items: [
-                      PopupMenuItem(child: Text("Low to High")),
-                      PopupMenuItem(child: Text("High to Low")),
+                      PopupMenuItem(
+                        child: Text("Low to High"),
+                        onTap: ()async{
+                                    List<Product> p=await http.sortProductsLow("phone");
+                                    if (p.isNotEmpty) {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => BagPage(),
+                                            settings: RouteSettings(arguments: p),
+                                          ),
+                                        );
+                                      } else {
+                                        // Handle empty or null product list
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(content: Text('No products found')),
+                                        );
+                                      }
+                                  },
+                        ),
+                      PopupMenuItem(child: Text("High to Low"),
+                      onTap: ()async{
+                                    List<Product> p=await http.sortProductsHigh("phone");
+                                    if (p.isNotEmpty) {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => BagPage(),
+                                            settings: RouteSettings(arguments: p),
+                                          ),
+                                        );
+                                      } else {
+                                        // Handle empty or null product list
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(content: Text('No products found')),
+                                        );
+                                      }
+                                  },
+                      ),
                       // Add more menu options here
                     ],
                   ).then((selectedValue) {
@@ -177,7 +252,7 @@ class _BagPageState extends State<BagPage> {
             ),
             SizedBox(height: 1.5),
             Text(
-              'Price: ${product.price}',
+              'Price: ${product.price ?? '\$440'}',
               style: TextStyle(
                 fontSize: 18,
                 color: Color.fromARGB(255, 40, 196, 239),
