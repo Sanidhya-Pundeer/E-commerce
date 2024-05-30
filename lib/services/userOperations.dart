@@ -49,6 +49,36 @@ class UserOperations {
 
   }
 
-  //Accound deactivate
-  remove() {}
+  //Update cart
+//   Future<void> addProductToCart() async {
+//   final cartRef = FirebaseFirestore.instance.collection('users').doc(userId);
+
+//   final newProduct = {
+//     'name': name,
+//     'image': image,
+//     'qty': qty,
+//   };
+
+//   try {
+//     await FirebaseFirestore.instance.runTransaction((transaction) async {
+//       final snapshot = await transaction.get(cartRef);
+
+//       if (snapshot.exists) {
+//         final cartData = snapshot.data()?['cart'] as Map<String, dynamic>? ?? {};
+//         cartData[productId] = newProduct;
+
+//         transaction.update(cartRef, {'cart': cartData});
+//       } else {
+//         transaction.set(cartRef, {
+//           'cart': {productId: newProduct}
+//         });
+//       }
+//     });
+
+//     print('Product added to cart');
+//   } catch (e) {
+//     print('Error adding product to cart: $e');
+//   }
+// }
+
 }

@@ -4,6 +4,8 @@ class UserClass {
    String password;
    int? phone;
    String? address;
+   Map<dynamic,dynamic>? cart;
+   Map<dynamic,dynamic>? orders;
 
 
 
@@ -20,7 +22,10 @@ class UserClass {
         "email":usermail,
         "password":password,
         "phone":phone,
-        "address":address
+        "address":address,
+        "cart":cart,
+        "orders":orders
+
       }
     );
   }
