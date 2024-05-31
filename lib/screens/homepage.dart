@@ -1,7 +1,4 @@
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
-import 'package:ecommerce/screens/checkout.dart';
-import 'package:ecommerce/screens/orders.dart';
+
 import 'package:flutter/material.dart';
 import 'package:ecommerce/model/product.dart';
 import 'package:ecommerce/screens/bagPage.dart';
@@ -63,7 +60,7 @@ class _HomePageState extends State<HomePage> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Hi $name 👋",
+                  "Welcome,",
                   style: TextStyle(
                     fontFamily: 'Lufga',
                     fontSize: 40,
@@ -92,6 +89,24 @@ class _HomePageState extends State<HomePage> {
                       hintText: 'What would you like to buy?',
                       hintStyle: TextStyle(
                           fontFamily: 'Lufga', fontWeight: FontWeight.w100)),
+
+                    onSubmitted: (value) async{
+                                List<Product> p = await http.getProducts(value);
+                                if (p.isNotEmpty) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => BagPage(),
+                                      settings: RouteSettings(arguments: p),
+                                    ),
+                                  );
+                                } else {
+                                  // Handle empty or null product list
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text('No products found')),
+                                  );
+                              };
+                    },
                 ),
               ),
             ),

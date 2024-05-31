@@ -33,7 +33,7 @@ class _HomeState extends State<Home> {
                 _page = index;
               });
             },
-            backgroundColor: Color.fromARGB(238, 253, 253, 253),
+            backgroundColor: Color.fromARGB(0, 255, 255, 255),
             buttonBackgroundColor: Color.fromARGB(255, 0, 0, 0),
             animationDuration: Duration(milliseconds: 300),
             color: Color.fromARGB(255, 0, 0, 0),

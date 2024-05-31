@@ -48,7 +48,7 @@ class _CheckoutState extends State<Checkout> {
     child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListTile(
-        tileColor: Colors.grey[200],
+        tileColor: const Color.fromARGB(255, 54, 53, 53),
         
         leading: product.img != null
             ? ClipRRect(
@@ -62,7 +62,7 @@ class _CheckoutState extends State<Checkout> {
             )
             : Placeholder( // Display a placeholder if image is null
                 child: Container(
-                  color: Colors.grey[200],
+                  color: Color.fromARGB(255, 1, 0, 0),
                   width: 80,
                   height: 80,
                 ),

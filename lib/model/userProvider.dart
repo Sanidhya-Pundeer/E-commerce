@@ -5,6 +5,7 @@ class userProvider extends ChangeNotifier {
   String? _name;
 
   String? get email => _email;
+  String? get name => _name;
   void setValue(String uemail, String uname) {
     _email=uemail;
     _name = uname;

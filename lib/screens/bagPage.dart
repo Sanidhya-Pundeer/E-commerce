@@ -73,13 +73,7 @@ class _BagPageState extends State<BagPage> {
           padding: EdgeInsets.only(left: 30, top: 10, bottom: 10),
           child: Align(
             alignment: Alignment.centerLeft,
-            child: Text(
-              "Category Name",
-              style: TextStyle(
-                fontFamily: 'Lufga',
-                fontSize: 16,
-              ),
-            ),
+            
           ),
         ),
         Expanded(

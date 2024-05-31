@@ -4,7 +4,7 @@ import 'package:ecommerce/model/UserClass.dart';
 
 class MenuDrawer extends StatelessWidget {
   var name = "Claire";
-  var usermail = "Chomu@gmail.com";
+  var usermail = "chomu@gmail.com";
   var phone = "8366483746";
 
   @override
