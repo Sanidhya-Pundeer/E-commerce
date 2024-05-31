@@ -46,13 +46,18 @@ class _CheckoutState extends State<Checkout> {
   return Card(
     margin: EdgeInsets.all(8.0),
     child: ListTile(
+      tileColor: Colors.black,
+      focusColor: Colors.black26,
       leading: product.img != null
-          ? Image.network(
-              product.img!,
-              width: 80,
-              height: 80,
-              fit: BoxFit.cover,
-            )
+          ? ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.network(
+                product.img!,
+                width: 80,
+                height: 80,
+                fit: BoxFit.cover,
+              ),
+          )
           : Placeholder( // Display a placeholder if image is null
               child: Container(
                 color: Colors.grey[200],
@@ -60,14 +65,14 @@ class _CheckoutState extends State<Checkout> {
                 height: 80,
               ),
             ),
-      title: Text(product.name!),
+      title: Text(product.name!,style: TextStyle(fontFamily: "Lufga",fontSize: 14,color: Colors.white),),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             
             Text(
               '${product.qty}',
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 18,color: Colors.white,fontFamily: "Lufga"),
             ),
             
           ],
@@ -80,6 +85,9 @@ class _CheckoutState extends State<Checkout> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
         title: Text("Checkout"),
       ),
       body: ListView.builder(
@@ -91,6 +99,15 @@ class _CheckoutState extends State<Checkout> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20),
+                            ),
+                          ),
+                          minimumSize: Size(290, 45),
+                        ),
           onPressed: () {
             Navigator.push(
               context,

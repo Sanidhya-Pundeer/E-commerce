@@ -46,13 +46,18 @@ class _Orders extends State<Orders> {
   return Card(
     margin: EdgeInsets.all(8.0),
     child: ListTile(
+       tileColor: Colors.black,
+      focusColor: Colors.black26,
       leading: product.img != null
-          ? Image.network(
-              product.img!,
-              width: 80,
-              height: 80,
-              fit: BoxFit.cover,
-            )
+          ? ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.network(
+                product.img!,
+                width: 80,
+                height: 80,
+                fit: BoxFit.cover,
+              ),
+          )
           : Placeholder( // Display a placeholder if image is null
               child: Container(
                 color: Colors.grey[200],
@@ -60,14 +65,14 @@ class _Orders extends State<Orders> {
                 height: 80,
               ),
             ),
-      title: Text(product.name!),
+      title: Text(product.name!,style: TextStyle(fontFamily: "Lufga",fontSize: 14,color: Colors.white),),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             
             Text(
               '${product.qty}',
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 18,fontFamily: "Lufga",color: Colors.white),
             ),
             
           ],
@@ -80,6 +85,9 @@ class _Orders extends State<Orders> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
         title: Text("Orders"),
       ),
       body: ListView.builder(
