@@ -45,39 +45,41 @@ class _Orders extends State<Orders> {
   
   return Card(
     margin: EdgeInsets.all(8.0),
-    child: ListTile(
-       tileColor: Colors.black,
-      focusColor: Colors.black26,
-      leading: product.img != null
-          ? ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.network(
-                product.img!,
-                width: 80,
-                height: 80,
-                fit: BoxFit.cover,
+    child: Padding(
+      padding: EdgeInsets.all(8.0),
+      child: ListTile(
+         tileColor: Colors.grey[200],
+        leading: product.img != null
+            ? ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.network(
+                  product.img!,
+                  width: 80,
+                  height: 80,
+                  fit: BoxFit.cover,
+                ),
+            )
+            : Placeholder( // Display a placeholder if image is null
+                child: Container(
+                  color: Colors.grey[200],
+                  width: 80,
+                  height: 80,
+                ),
               ),
-          )
-          : Placeholder( // Display a placeholder if image is null
-              child: Container(
-                color: Colors.grey[200],
-                width: 80,
-                height: 80,
+        title: Text(product.name!,style: TextStyle(fontFamily: "Lufga",fontSize: 14,color: Colors.white),),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              
+              Text(
+                '${product.qty}',
+                style: TextStyle(fontSize: 18,fontFamily: "Lufga",color: Colors.white),
               ),
-            ),
-      title: Text(product.name!,style: TextStyle(fontFamily: "Lufga",fontSize: 14,color: Colors.white),),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            
-            Text(
-              '${product.qty}',
-              style: TextStyle(fontSize: 18,fontFamily: "Lufga",color: Colors.white),
-            ),
-            
-          ],
+              
+            ],
+          ),
         ),
-      ),
+    ),
     );
   }
 
