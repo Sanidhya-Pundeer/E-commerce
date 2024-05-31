@@ -3,6 +3,7 @@ import 'package:ecommerce/model/product.dart';
 import 'package:ecommerce/model/userProvider.dart';
 import 'package:ecommerce/screens/bagPage.dart';
 import 'package:ecommerce/screens/detailPage.dart';
+import 'package:ecommerce/screens/home.dart';
 import 'package:ecommerce/screens/homepage.dart';
 import 'package:ecommerce/screens/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/signup': (context) => Signup(),
           '/home': (context) => HomePage(),
+          '/home1': (context) => Home(),
           '/bagPage': (context) => BagPage(),
           '/detailPage': (context) => DetailPage(
               product: ModalRoute.of(context)!.settings.arguments as Product),
