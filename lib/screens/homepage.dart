@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             Container(
               width: 150,
-              margin: EdgeInsets.only(left: 65),
+              margin: EdgeInsets.only(left: 27),
               child: Image.asset(
                 'assets/images/SwiftCart.png',
                 height: 57,
@@ -142,7 +142,6 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   _buildMenuText('Category', 0),
-                  _buildMenuText('Brands', 1),
                 ],
               ),
             ),
@@ -171,55 +170,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: CurvedNavigationBar(
-        animationDuration: Duration(milliseconds: 300),
-        backgroundColor: Colors.transparent,
-        height: 80,
-        color: Colors.black,
-        items: [
-          CurvedNavigationBarItem(
-            child: Icon(
-              Icons.home,
-              color: Colors.white,
-            ),
-            labelStyle: TextStyle(fontSize: 12, color: Colors.white),
-            label: "Home",
-          ),
-          CurvedNavigationBarItem(
-              child: Icon(
-                Icons.trolley,
-                color: Colors.white,
-              ),
-              labelStyle: TextStyle(fontSize: 12, color: Colors.white),
-              label: "Cart"),
-          CurvedNavigationBarItem(
-            child: Icon(
-              Icons.timelapse_rounded,
-              color: Colors.white,
-            ),
-            labelStyle: TextStyle(fontSize: 12, color: Colors.white),
-            label: "Previous Orders",
-          ),
-        ],
-        onTap: (index) {
-          if (index == 0) {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomePage()));
-          } else if (index == 1) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => Checkout(
-                          userEmail: 'chomu@gmail.com',
-                        )));
-          } else if (index == 2) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>Orders(userEmail: 'chomu@gmail.com')));
-          }
-        },
-      ),
+     
     );
   }
 

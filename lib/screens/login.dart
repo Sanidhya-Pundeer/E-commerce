@@ -1,3 +1,4 @@
+import 'package:ecommerce/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce/model/UserClass.dart';
 import 'package:ecommerce/screens/homepage.dart';
@@ -212,7 +213,7 @@ class _LoginPageState extends State<Login> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => HomePage(),
+                                        builder: (context) => Home(),
                                       ),
                                     );
                                   } else {

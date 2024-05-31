@@ -25,37 +25,7 @@ class _HomeState extends State<Home> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          scrolledUnderElevation: 0,
-          backgroundColor: Colors.white,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 150,
-                margin: EdgeInsets.only(left: 65),
-                child: Image.asset(
-                  'assets/images/SwiftCart.png',
-                  height: 57,
-                  width: 250,
-                  fit: BoxFit.contain,
-                ),
-              ),
-              SizedBox(width: 8),
-            ],
-          ),
-          actions: [
-            Padding(
-              padding: EdgeInsets.only(right: 12.0),
-              child: IconButton(
-                icon: Icon(Icons.account_circle),
-                iconSize: 32,
-                color: Colors.black,
-                onPressed: () {},
-              ),
-            ),
-          ],
-        ),
+        
         body: _pages[_page],
         bottomNavigationBar: CurvedNavigationBar(
             onTap: (index) {
@@ -63,19 +33,19 @@ class _HomeState extends State<Home> {
                 _page = index;
               });
             },
-            backgroundColor: Color.fromARGB(239, 0, 0, 0),
-            buttonBackgroundColor: Color.fromARGB(255, 155, 8, 8),
+            backgroundColor: Color.fromARGB(238, 253, 253, 253),
+            buttonBackgroundColor: Color.fromARGB(255, 0, 0, 0),
             animationDuration: Duration(milliseconds: 300),
-            color: Color.fromARGB(255, 155, 8, 8),
+            color: Color.fromARGB(255, 0, 0, 0),
             items: [
               CurvedNavigationBarItem(
-                child: Icon(Icons.home),
+                child: Icon(Icons.home,color: Colors.white,),
               ),
               CurvedNavigationBarItem(
-                child: Icon(Icons.search),
+                child: Icon(Icons.trolley,color: Colors.white,),
               ),
               CurvedNavigationBarItem(
-                child: Icon(Icons.download_done_sharp),
+                child: Icon(Icons.timelapse_outlined,color: Colors.white,),
               ),
             ]),
       ),
