@@ -102,7 +102,7 @@ class _BagPageState extends State<BagPage> {
       ]),
       bottomNavigationBar: BottomAppBar(
         color: Colors.black,
-        height: 60,
+        height: 80,
         shape: CircularNotchedRectangle(), // Notch for floating action button
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -122,12 +122,15 @@ class _BagPageState extends State<BagPage> {
                 );
 
                 showMenu<String>(
+                  color: Colors.black,
                   context: context,
                   position: RelativeRect.fromRect(
                       buttonRect, Offset.zero & MediaQuery.of(context).size),
                   items: [
                     PopupMenuItem(
-                      child: Text("Rating > 3"),
+                      child: Text("Rating > 3",
+                          style: TextStyle(
+                              fontFamily: "Lufga", color: Colors.white)),
                       onTap: () async {
                         List<Product> p = await http.rate3("phone");
                         if (p.isNotEmpty) {
@@ -147,7 +150,9 @@ class _BagPageState extends State<BagPage> {
                       },
                     ),
                     PopupMenuItem(
-                      child: Text("Rating > 4"),
+                      child: Text("Rating > 4",
+                          style: TextStyle(
+                              fontFamily: "Lufga", color: Colors.white)),
                       onTap: () async {
                         List<Product> p = await http.rate4("phone");
                         if (p.isNotEmpty) {
@@ -175,7 +180,16 @@ class _BagPageState extends State<BagPage> {
                   }
                 });
               },
-              icon: Icon(Icons.filter_alt_sharp, color: Colors.white),
+                icon: Row(
+                children: [
+                  Icon(Icons.filter_alt_sharp, color: Colors.white),
+                  SizedBox(width: 5), // Adjust the spacing between icon and label
+                  Text(
+                    'Filter',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
             ),
             IconButton(
               key: sortKey,
@@ -192,12 +206,17 @@ class _BagPageState extends State<BagPage> {
                 );
 
                 showMenu<String>(
+                  color: Colors.black,
                   context: context,
                   position: RelativeRect.fromRect(
                       buttonRect, Offset.zero & MediaQuery.of(context).size),
                   items: [
                     PopupMenuItem(
-                      child: Text("Low to High"),
+                      child: Text(
+                        "Low to High",
+                        style:
+                            TextStyle(fontFamily: "Lufga", color: Colors.white),
+                      ),
                       onTap: () async {
                         List<Product> p = await http.sortProductsLow("phone");
                         if (p.isNotEmpty) {
@@ -217,7 +236,9 @@ class _BagPageState extends State<BagPage> {
                       },
                     ),
                     PopupMenuItem(
-                      child: Text("High to Low"),
+                      child: Text("High to Low",
+                          style: TextStyle(
+                              fontFamily: "Lufga", color: Colors.white)),
                       onTap: () async {
                         List<Product> p = await http.sortProductsHigh("phone");
                         if (p.isNotEmpty) {
@@ -245,9 +266,16 @@ class _BagPageState extends State<BagPage> {
                   }
                 });
               },
-              icon: Icon(
-                Icons.sort,
-                color: Colors.white,
+              icon: Row(
+                children: [
+                  Icon(Icons.sort, color: Colors.white),
+                  SizedBox(
+                      width: 5), // Adjust the spacing between icon and label
+                  Text(
+                    'Sort',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ],
               ),
             ),
           ],
