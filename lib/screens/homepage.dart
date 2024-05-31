@@ -1,5 +1,6 @@
 import 'package:ecommerce/model/product.dart';
 import 'package:ecommerce/screens/bagPage.dart';
+import 'package:ecommerce/screens/menuDrawer.dart';
 import 'package:ecommerce/services/Helper.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class _HomePageState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
+      drawer: MenuDrawer(),
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
