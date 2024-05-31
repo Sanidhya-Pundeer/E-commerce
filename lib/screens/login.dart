@@ -1,9 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:ecommerce/model/UserClass.dart';
 import 'package:ecommerce/screens/homepage.dart';
 import 'package:ecommerce/screens/signup.dart';
 import 'package:ecommerce/services/userOperations.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -12,10 +11,11 @@ class Login extends StatefulWidget {
 
 class _LoginPageState extends State<Login> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  UserOperations operate=UserOperations();
-  UserClass u=UserClass(usermail: '', password: '');
+  UserOperations operate = UserOperations();
+  UserClass u = UserClass(usermail: '', password: '');
   final TextEditingController _usermailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _obscurePassword = true; // Add this line for password visibility toggle
 
   @override
   Widget build(BuildContext context) {
@@ -31,148 +31,192 @@ class _LoginPageState extends State<Login> {
                 child: Column(
                   children: [
                     Image(
-                      image: AssetImage("assets/images/logo.jpg"),
-                      height: 240,
-                      width: 240,
+                      image: AssetImage("assets/images/SwiftCart.png"),
+                      height: 200,
+                      width: 270,
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 70.0,
-                      ),
-                      child: TextFormField(
-                        controller: _usermailController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "This field is required";
-                          }
-                          return null;
-                        },
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: InputDecoration(
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.only(left: 9, right: 9),
-                            child: Icon(Icons.account_circle_outlined),
-                          ),
-                          labelText: 'Username',
-                          fillColor: Colors.grey[100],
-                          filled: true,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(9.0),
-                            borderSide: BorderSide(
-                                color: Color.fromARGB(255, 180, 104, 216),
-                                width: 0.5),
-                          ),
-                          contentPadding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 15.0),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20.0),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 70.0,
-                      ),
-                      child: TextFormField(
-                        controller: _passwordController,
-                        obscureText: true,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'This field is required';
-                          } else if (value.length < 8) {
-                            return 'Password must be at least 8 characters long';
-                          }
-                          return null;
-                        },
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: InputDecoration(
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.only(left: 9, right: 9),
-                            child: Icon(Icons.lock_outline),
-                          ),
-                          suffixIcon: Padding(
-                            padding: EdgeInsets.only(left: 14, right: 14),
-                            child: Icon(Icons.remove_red_eye),
-                          ),
-                          labelText: 'Password',
-                          fillColor: Colors.grey[100],
-                          filled: true,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(9.0),
-                          ),
-                          contentPadding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 15.0),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 30.0),
-                    Center(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 206, 46, 46),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
+                      padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 2.0, horizontal: 7.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.0),
+                              color: Colors.grey[100],
+                            ),
+                            child: TextFormField(
+                              controller: _usermailController,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.account_circle_rounded),
+                                labelText: 'Username',
+                                fillColor: Colors.grey[100],
+                                filled: true,
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: 0, horizontal: 0),
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.never,
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  borderSide: BorderSide.none,
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  borderSide: BorderSide.none,
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  borderSide: BorderSide.none,
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  borderSide: BorderSide.none,
+                                ),
+                              ),
                             ),
                           ),
-                          minimumSize: Size(180, 50),
-                        ),
-                        onPressed: () async{
-                          u.usermail=_usermailController.text.trim();
-                          u.password=_passwordController.text.trim();
-                          final form = _formKey.currentState;
-                          if (form!.validate()){
-                            print("Valid Form");
-                            int a=await operate.login(u);
-                            if (a==1) {
-                              Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HomePage(),
+                          SizedBox(height: 10.0),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 2.0, horizontal: 7.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.0),
+                              color: Colors.grey[100],
+                            ),
+                            child: TextFormField(
+                              controller: _passwordController,
+                              obscureText: _obscurePassword,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.lock_rounded),
+                                suffixIcon: IconButton(
+                                  icon: Icon(_obscurePassword
+                                      ? Icons.visibility
+                                      : Icons.visibility_off),
+                                  onPressed: () {
+                                    setState(() {
+                                      _obscurePassword = !_obscurePassword;
+                                    });
+                                  },
+                                ),
+                                labelText: 'Password',
+                                fillColor: Colors.grey[100],
+                                filled: true,
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: 0, horizontal: 0),
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.never,
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  borderSide: BorderSide.none,
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  borderSide: BorderSide.none,
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  borderSide: BorderSide.none,
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  borderSide: BorderSide.none,
+                                ),
                               ),
-                            );
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text("Incorrect credentials"),
-                                  duration: Duration(milliseconds: 1500),
-                                )
-                              );
-                            }
-                            
-                          } else {
-                            print("error in form");
-                          }
-                        },
-                        child: Text(
-                          'Login',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 17.0,
+                            ),
                           ),
-                        ),
+                          SizedBox(height: 20.0),
+                          Center(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.black,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20),
+                                  ),
+                                ),
+                                minimumSize: Size(290, 45),
+                              ),
+                              onPressed: () async {
+                                u.usermail = _usermailController.text.trim();
+                                u.password = _passwordController.text.trim();
+                                final form = _formKey.currentState;
+                                if (form!.validate()) {
+                                  print("Valid Form");
+                                  int a = await operate.login(u);
+                                  if (a == 1) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => HomePage(),
+                                      ),
+                                    );
+                                  } else {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(
+                                      SnackBar(
+                                        content:
+                                            Text("Incorrect credentials"),
+                                        duration:
+                                            Duration(milliseconds: 1500),
+                                      ),
+                                    );
+                                  }
+                                } else {
+                                  print("error in form");
+                                }
+                              },
+                              child: Text(
+                                'Login',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17.0,
+                                    fontFamily: 'Lufga',
+                                    fontWeight: FontWeight.normal),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Don\'t have an Account?',
+                                style: TextStyle(
+                                  color: const Color.fromARGB(255, 63, 63, 63),
+                                ),
+                              ),
+                              TextButton(
+                                style: TextButton.styleFrom(
+                                  padding: EdgeInsets.only(left: 2), // Remove the padding
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Signup(),
+                                    ),
+                                  );
+                                },
+                                child: Text(
+                                  'Sign Up',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ),
-                    SizedBox(height: 160.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Don\'t have an Account?',
-                          style: TextStyle(
-                              color: const Color.fromARGB(255, 63, 63, 63)),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => Signup()),
-                            );
-                          },
-                          child: Text(
-                            'Sign Up',
-                            style: TextStyle(color: Colors.red),
-                          ),
-                        ),
-                      ],
                     ),
                   ],
                 ),
