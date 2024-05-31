@@ -42,10 +42,10 @@ class MyApp extends StatelessWidget {
         home: Login(),
         routes: {
           '/signup': (context) => Signup(),
-
           '/home': (context) => HomePage(),
           '/bagPage': (context) => BagPage(),
-          '/detailPage': (context) => DetailPage(product: ModalRoute.of(context)!.settings.arguments as Product),
+          '/detailPage': (context) => DetailPage(
+              product: ModalRoute.of(context)!.settings.arguments as Product),
         },
       ),
     );
