@@ -1,3 +1,6 @@
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
+import 'package:ecommerce/screens/checkout.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce/model/product.dart';
 import 'package:ecommerce/screens/bagPage.dart';
@@ -166,6 +169,57 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: CurvedNavigationBar(
+        animationDuration: Duration(milliseconds: 300),
+        backgroundColor: Colors.transparent,
+        height: 80,
+        color: Colors.black,
+        items: [
+          CurvedNavigationBarItem(
+            child: Icon(
+              Icons.home,
+              color: Colors.white,
+            ),
+            labelStyle: TextStyle(fontSize: 12, color: Colors.white),
+            label: "Home",
+          ),
+          CurvedNavigationBarItem(
+              child: Icon(
+                Icons.trolley,
+                color: Colors.white,
+              ),
+              labelStyle: TextStyle(fontSize: 12, color: Colors.white),
+              label: "Cart"),
+          CurvedNavigationBarItem(
+            child: Icon(
+              Icons.timelapse_rounded,
+              color: Colors.white,
+            ),
+            labelStyle: TextStyle(fontSize: 12, color: Colors.white),
+            label: "Previous Orders",
+          ),
+        ],
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomePage()));
+          } else if (index == 1) {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Checkout(
+                          userEmail: 'chomu@gmail.com',
+                        )));
+          } else if (index == 2) {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Checkout(
+                          userEmail: 'chomu@gmail.com',
+                        )));
+          }
+        },
       ),
     );
   }
