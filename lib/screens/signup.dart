@@ -1,11 +1,10 @@
-import 'package:ecommerce/model/UserClass.dart';
-import 'package:ecommerce/model/userProvider.dart';
-import 'package:ecommerce/screens/homepage.dart';
-import 'package:ecommerce/screens/login.dart';
-import 'package:ecommerce/services/userOperations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:ecommerce/model/UserClass.dart';
+import 'package:ecommerce/model/userProvider.dart';
+import 'package:ecommerce/services/userOperations.dart';
+import 'package:ecommerce/screens/login.dart';
 
 class Signup extends StatefulWidget {
   @override
@@ -26,7 +25,8 @@ class _SignupPageState extends State<Signup> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: Stack(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 120.0),
@@ -34,20 +34,14 @@ class _SignupPageState extends State<Signup> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    Text(
-                      "Enter your Details",
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Image(
+                      image: AssetImage("assets/images/SwiftCart.png"),
+                      height: 200,
+                      width: 270,
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
+                    SizedBox(height: 20.0),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 70.0,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 50.0),
                       child: TextFormField(
                         controller: _fullnameController,
                         validator: (value) {
@@ -60,35 +54,33 @@ class _SignupPageState extends State<Signup> {
                         decoration: InputDecoration(
                           prefixIcon: Padding(
                             padding: EdgeInsets.only(left: 9, right: 9),
-                            child: Icon(Icons.account_circle_outlined),
+                            child: Icon(
+                              Icons.account_circle_outlined,
+                              color: Colors.black,
+                            ),
                           ),
                           labelText: 'Full Name',
+                          labelStyle: TextStyle(
+                              fontFamily: 'Lufga', fontWeight: FontWeight.w100),
                           fillColor: Colors.grey[100],
                           filled: true,
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(9.0),
-                            borderSide: BorderSide(
-                                color: Color.fromARGB(255, 180, 104, 216),
-                                width: 0.5),
+                            borderRadius: BorderRadius.circular(30.0),
+                            borderSide: BorderSide.none,
                           ),
                           contentPadding: EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 15.0),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 20.0,
-                    ),
+                    SizedBox(height: 20.0),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 70.0,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 50.0),
                       child: TextFormField(
-                        keyboardType: TextInputType
-                            .number, // This sets the keyboard type to a number pad
+                        keyboardType: TextInputType.number,
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly
-                        ], // This allows only digits (numbers)
+                        ],
                         controller: _phonenoController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -102,16 +94,19 @@ class _SignupPageState extends State<Signup> {
                         decoration: InputDecoration(
                           prefixIcon: Padding(
                             padding: EdgeInsets.only(left: 9, right: 9),
-                            child: Icon(Icons.phone),
+                            child: Icon(
+                              Icons.phone,
+                              color: Colors.black,
+                            ),
                           ),
                           labelText: 'Phone Number',
+                          labelStyle: TextStyle(
+                              fontFamily: 'Lufga', fontWeight: FontWeight.w100),
                           fillColor: Colors.grey[100],
                           filled: true,
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(9.0),
-                            borderSide: BorderSide(
-                                color: Color.fromARGB(255, 180, 104, 216),
-                                width: 0.5),
+                            borderRadius: BorderRadius.circular(30.0),
+                            borderSide: BorderSide.none,
                           ),
                           contentPadding: EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 15.0),
@@ -120,9 +115,7 @@ class _SignupPageState extends State<Signup> {
                     ),
                     SizedBox(height: 20.0),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 70.0,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 50.0),
                       child: TextFormField(
                         controller: _useremailController,
                         validator: (value) {
@@ -135,16 +128,19 @@ class _SignupPageState extends State<Signup> {
                         decoration: InputDecoration(
                           prefixIcon: Padding(
                             padding: EdgeInsets.only(left: 9, right: 9),
-                            child: Icon(Icons.person_2),
+                            child: Icon(
+                              Icons.person_2,
+                              color: Colors.black,
+                            ),
                           ),
                           labelText: 'Usermail',
+                          labelStyle: TextStyle(
+                              fontFamily: 'Lufga', fontWeight: FontWeight.w100),
                           fillColor: Colors.grey[100],
                           filled: true,
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(9.0),
-                            borderSide: BorderSide(
-                                color: Color.fromARGB(255, 180, 104, 216),
-                                width: 0.5),
+                            borderRadius: BorderRadius.circular(30.0),
+                            borderSide: BorderSide.none,
                           ),
                           contentPadding: EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 15.0),
@@ -153,9 +149,7 @@ class _SignupPageState extends State<Signup> {
                     ),
                     SizedBox(height: 20.0),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 70.0,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 50.0),
                       child: TextFormField(
                         controller: _passwordController,
                         obscureText: true,
@@ -171,17 +165,26 @@ class _SignupPageState extends State<Signup> {
                         decoration: InputDecoration(
                           prefixIcon: Padding(
                             padding: EdgeInsets.only(left: 9, right: 9),
-                            child: Icon(Icons.lock_outline),
+                            child: Icon(
+                              Icons.lock_outline,
+                              color: Colors.black,
+                            ),
                           ),
                           suffixIcon: Padding(
                             padding: EdgeInsets.only(left: 14, right: 14),
-                            child: Icon(Icons.remove_red_eye),
+                            child: Icon(
+                              Icons.remove_red_eye,
+                              color: Colors.black,
+                            ),
                           ),
                           labelText: 'Password',
+                          labelStyle: TextStyle(
+                              fontFamily: 'Lufga', fontWeight: FontWeight.w100),
                           fillColor: Colors.grey[100],
                           filled: true,
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(9.0),
+                            borderRadius: BorderRadius.circular(30.0),
+                            borderSide: BorderSide.none,
                           ),
                           contentPadding: EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 15.0),
@@ -194,10 +197,10 @@ class _SignupPageState extends State<Signup> {
                           builder: (context, provider, child) {
                         return ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 206, 46, 46),
+                            backgroundColor: Colors.black,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(
-                                Radius.circular(10),
+                                Radius.circular(20),
                               ),
                             ),
                             minimumSize: Size(180, 50),
@@ -237,10 +240,43 @@ class _SignupPageState extends State<Signup> {
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 17.0,
+                              fontFamily: 'Lufga',
+                              fontWeight: FontWeight.normal,
                             ),
                           ),
                         );
                       }),
+                    ),
+                    SizedBox(height: 10.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Already have an Account?',
+                          style: TextStyle(
+                            color: const Color.fromARGB(255, 63, 63, 63),
+                          ),
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            padding:
+                                EdgeInsets.only(left: 2), // Remove the padding
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Login()),
+                            );
+                          },
+                          child: Text(
+                            'Login',
+                            style: TextStyle(
+                              color: Colors.black,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

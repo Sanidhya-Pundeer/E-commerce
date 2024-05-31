@@ -68,33 +68,81 @@ class _RazorPayState extends State<RazorPay> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Razor Pay Authentication'),
+          title: Text('Payment',
+          style: TextStyle(color: Colors.white), 
+        ),
+        backgroundColor: Colors.black,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white), 
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         ),
         body: SingleChildScrollView(
           child: Column(
             children: [
               SizedBox(
-                height: 100,
+                height: 80,
               ),
               Image.network(
-                  "https://i.pinimg.com/600x315/e8/9f/67/e89f67159c53c13538674668b9952d9b.jpg"),
+                  "https://i.pinimg.com/736x/a9/09/63/a90963c1eff4a236a38fac75abc907e7.jpg",
+                  height: 180,
+                  width: 180, 
+                  fit: BoxFit.cover,),
               SizedBox(
                 height: 40,
               ),
-              Text("Welcome to RazorPay Payment Gateway"),
-              TextFormField(
-                cursorColor: Colors.white,
-                autofocus: false,
-                decoration:
-                    InputDecoration(labelText: "Enter amount to be paid"),
+             Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            "Welcome to RazorPay Payment Gateway",
+            style: TextStyle(
+              fontSize: 20, 
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        SizedBox(
+                height: 20,
+              ),
+        Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: TextFormField(
                 controller: amtController,
+                cursorColor: Colors.white,
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.monetization_on_rounded),
+                labelText: 'Amount to be paid',
+                fillColor: Colors.grey[100],
+                filled: true,
+                contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                  borderSide: BorderSide.none,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                  borderSide: BorderSide.none,
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                  borderSide: BorderSide.none,
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                  borderSide: BorderSide.none,
+                ),
+              ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return "Please enter amount to be paid";
                   }
                   return null;
                 },
-              ),
+              ),),
               SizedBox(
                 height: 40,
               ),
@@ -108,6 +156,10 @@ class _RazorPayState extends State<RazorPay> {
                       });
                     }
                   },
+                  style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.black, 
+                    ),
                   child: Padding(
                     padding: EdgeInsets.all(8),
                     child: Text('Make Payment'),
