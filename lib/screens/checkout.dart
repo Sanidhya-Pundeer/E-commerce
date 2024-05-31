@@ -39,20 +39,28 @@ class _CheckoutState extends State<Checkout> {
     }
   }
 
-  Widget _buildCartItem(
-      BuildContext context, Map<String, dynamic> productData, int index) {
-    final product = Product().fromMap(productData);
-
-    return Card(
-      margin: EdgeInsets.all(8.0),
-      child: ListTile(
-        leading: Image.network(
-          product.img!,
-          width: 80,
-          height: 80,
-          fit: BoxFit.cover,
-        ),
-        title: Text(product.name!),
+  Widget _buildCartItem(BuildContext context,Map<String, dynamic> productData,int index,) {
+  
+  final product = Product().fromMapCart(productData);
+  
+  return Card(
+    margin: EdgeInsets.all(8.0),
+    child: ListTile(
+      leading: product.img != null
+          ? Image.network(
+              product.img!,
+              width: 80,
+              height: 80,
+              fit: BoxFit.cover,
+            )
+          : Placeholder( // Display a placeholder if image is null
+              child: Container(
+                color: Colors.grey[200],
+                width: 80,
+                height: 80,
+              ),
+            ),
+      title: Text(product.name!),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -124,45 +132,6 @@ class _CheckoutState extends State<Checkout> {
   }
 }
 
-// Placeholder for Product class
-// class Product {
-//   String? id;
-//   String? name;
-//   String? img;
-//   int qty;
-
-//   Product({this.id, this.name, this.img, this.qty = 1});
-
-//   Product fromMap(Map<String, dynamic> map) {
-//     return Product(
-//       id: map['id'],
-//       name: map['name'],
-//       img: map['img'],
-//       qty: map['qty'],
-//     );
-//   }
-// }
-
-// Placeholder for UserOperations class
-// class UserOperations {
-//   Future<List<Map<String, dynamic>>> getCartProducts(String email) async {
-//     // Implement the logic to fetch cart products from Firestore or any other source
-//     // Example: return a list of product maps
-//     return [];
-//   }
-
-//   Future<void> updateProductQuantity(String productId, String email) async {
-//     // Implement the logic to increase product quantity in the cart
-//   }
-
-//   Future<void> decreaseProductQuantity(String productId, String email) async {
-//     // Implement the logic to decrease product quantity in the cart
-//   }
-
-//   Future<void> removeProductFromCart(String productId, String email) async {
-//     // Implement the logic to remove the product from the cart
-//   }
-// }
 
 // Placeholder for RazorPayScreen class
 class RazorPayScreen extends StatelessWidget {

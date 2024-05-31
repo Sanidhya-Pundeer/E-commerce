@@ -85,7 +85,7 @@ class Product {
 
    Product fromMap(Map<String, dynamic> map) {
      Product p=Product();
-      p.id = ['product_id'] as String?;
+      p.id = ['product_id'] as String;
       p.name = ( ['product_title'] as String?)?.split(',')[0];
       p.price = ( ['typical_price_range'] as List<dynamic>?)?[0] as String?;
       p.rating = ( ['product_rating'] as num?)?.toDouble();
@@ -94,4 +94,21 @@ class Product {
       p.desc =  ['product_description'] as String?;
       return p;
   }
+
+ Product fromMapCart(Map<String, dynamic> map) {
+  // Assuming the top-level key is a product ID (can be adjusted if needed)
+  print(map.toString());
+
+  if (map != null && map is Map<String, dynamic>) {
+    // Extract product details from the nested map
+    Product p=Product();
+    p.img = map['pimg'] as String;
+    p.name = map['pname'] as String;
+    p.qty = map['pqty']?? 0; // Handle potential parsing errors
+    return p;
+  } else {
+    // Handle invalid data structure (optional)
+    throw Exception('Invalid product data format');
+  }
+}
 }
