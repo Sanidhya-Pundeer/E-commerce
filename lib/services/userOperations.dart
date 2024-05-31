@@ -265,5 +265,4 @@ Future<List<String>> getCartProductIds(String email) async {
   return cartProductIds;
 }
 
-
 }
