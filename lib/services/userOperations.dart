@@ -246,5 +246,24 @@ Future<List<Map<String, dynamic>>> getCartProducts(String email) async {
   return cartProducts;
 }
 
+Future<List<String>> getCartProductIds(String email) async {
+  final firestore = FirebaseFirestore.instance;
+
+  final userRef = firestore.collection('users').where('email', isEqualTo: email);
+  final querySnapshot = await userRef.get();
+
+  if (querySnapshot.docs.isEmpty) {
+    return []; // User document not found
+  }
+
+  final userDoc = querySnapshot.docs.first;
+  final cartData = userDoc.data()!['cart'] ?? {};
+
+  // Instead of iterating over the entire product data, extract just the IDs
+  final List<String> cartProductIds = cartData.keys.toList();
+
+  return cartProductIds;
+}
+
 
 }

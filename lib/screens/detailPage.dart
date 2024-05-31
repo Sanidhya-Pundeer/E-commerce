@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:ecommerce/model/cartProvider.dart';
 import 'package:ecommerce/model/product.dart';
 import 'package:ecommerce/model/userProvider.dart';
@@ -47,13 +49,14 @@ class _DetailPageState extends State<DetailPage> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(height: 7,),
               Image.asset(
-                'assets/images/logo.jpg',
-                height: 30,
-                width: 200,
+                'assets/images/SwiftCart.png',
+                height: 65,
+                width: 250,
                 fit: BoxFit.contain,
               ),
-              SizedBox(width: 8),
+              SizedBox(width: 5),
             ],
           ),
           actions: [
@@ -264,12 +267,12 @@ class _DetailPageState extends State<DetailPage> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
+                backgroundColor: const Color.fromARGB(255, 19, 18, 18),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              child: Text("Add to Cart"),
+              child: Text("Add to Cart",style: TextStyle(color: Colors.white),),
             )
           ],
         ),

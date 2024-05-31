@@ -64,40 +64,12 @@ class _CheckoutState extends State<Checkout> {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            IconButton(
-              icon: Icon(Icons.remove),
-              onPressed: () async {
-                if (product.qty == 0) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text("Product not in Cart"),
-                      duration: Duration(milliseconds: 1500),
-                    ),
-                  );
-                } else {
-                  if (product.qty == 1) {
-                    await operate.removeProductFromCart(
-                        product.id!, widget.userEmail);
-                  } else {
-                    await operate.decreaseProductQuantity(
-                        product.id!, widget.userEmail);
-                  }
-                  _getCartProducts(); // Refresh cart products
-                }
-              },
-            ),
+            
             Text(
               '${product.qty}',
               style: TextStyle(fontSize: 18),
             ),
-            IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () async {
-                await operate.updateProductQuantity(
-                    product.id!, widget.userEmail);
-                _getCartProducts(); // Refresh cart products
-              },
-            ),
+            
           ],
         ),
       ),
