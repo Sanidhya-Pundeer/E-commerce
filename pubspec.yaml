@@ -69,7 +69,10 @@ flutter:
   fonts:
     - family: Lufga
       fonts:
-        - asset: assets/fonts/
+        - asset: assets/fonts/LufgaLight.ttf
+        - asset: assets/fonts/LufgaMedium.ttf
+        - asset: assets/fonts/LufgaRegular.ttf
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

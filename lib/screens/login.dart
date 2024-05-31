@@ -19,6 +19,31 @@ class _LoginPageState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    String? _usernameError;
+    String? _passwordError;
+
+    void _validateUsername(String value) {
+      setState(() {
+        if (value.isEmpty) {
+          _usernameError = 'This field is required';
+        } else {
+          _usernameError = null;
+        }
+      });
+    }
+
+    void _validatePassword(String value) {
+      setState(() {
+        if (value.isEmpty) {
+          _passwordError = 'This field is required';
+        } else if (value.length < 8) {
+          _passwordError = 'Password must be at least 8 characters long';
+        } else {
+          _passwordError = null;
+        }
+      });
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -51,6 +76,7 @@ class _LoginPageState extends State<Login> {
                               controller: _usermailController,
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
+                              onChanged: _validateUsername,
                               decoration: InputDecoration(
                                 prefixIcon: Icon(Icons.account_circle_rounded),
                                 labelText: 'Username',
@@ -79,6 +105,22 @@ class _LoginPageState extends State<Login> {
                               ),
                             ),
                           ),
+                          if (_usernameError != null)
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 8.0, left: 8.0, right: 8.0),
+                              child: Text(
+                                _usernameError!,
+                                style: TextStyle(
+                                  fontFamily: 'Lufga',
+                                  fontWeight: FontWeight.normal,
+                                  fontSize:
+                                      12.0, // Adjust the font size as needed
+                                  color: Color.fromARGB(255, 206, 46,
+                                      46), // Customize the error text color
+                                ),
+                              ),
+                            ),
                           SizedBox(height: 10.0),
                           Container(
                             padding: EdgeInsets.symmetric(
@@ -92,6 +134,7 @@ class _LoginPageState extends State<Login> {
                               obscureText: _obscurePassword,
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
+                              onChanged: _validatePassword,
                               decoration: InputDecoration(
                                 prefixIcon: Icon(Icons.lock_rounded),
                                 suffixIcon: IconButton(
@@ -130,6 +173,22 @@ class _LoginPageState extends State<Login> {
                               ),
                             ),
                           ),
+                          if (_passwordError != null)
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 8.0, left: 8.0, right: 8.0),
+                              child: Text(
+                                _passwordError!,
+                                style: TextStyle(
+                                  fontFamily: 'Lufga',
+                                  fontWeight: FontWeight.normal,
+                                  fontSize:
+                                      12.0, // Adjust the font size as needed
+                                  color: Color.fromARGB(255, 206, 46,
+                                      46), // Customize the error text color
+                                ),
+                              ),
+                            ),
                           SizedBox(height: 20.0),
                           Center(
                             child: ElevatedButton(
@@ -157,13 +216,10 @@ class _LoginPageState extends State<Login> {
                                       ),
                                     );
                                   } else {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(
+                                    ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
-                                        content:
-                                            Text("Incorrect credentials"),
-                                        duration:
-                                            Duration(milliseconds: 1500),
+                                        content: Text("Incorrect credentials"),
+                                        duration: Duration(milliseconds: 1500),
                                       ),
                                     );
                                   }
@@ -195,7 +251,8 @@ class _LoginPageState extends State<Login> {
                               ),
                               TextButton(
                                 style: TextButton.styleFrom(
-                                  padding: EdgeInsets.only(left: 2), // Remove the padding
+                                  padding: EdgeInsets.only(
+                                      left: 2), // Remove the padding
                                 ),
                                 onPressed: () {
                                   Navigator.push(
